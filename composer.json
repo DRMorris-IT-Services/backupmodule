@@ -1,0 +1,14 @@
+{
+    "name": "duncanrmorris/backupmodule",
+    "description": "The Backup Module for Laravel framework",
+    "type": "library",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Duncan Morris",
+            "email": "duncanmorris07@outlook.com"
+        }
+    ],
+    "minimum-stability": "dev",
+    "require": {}
+}
