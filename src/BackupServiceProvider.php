@@ -3,6 +3,8 @@ namespace duncanrmorris\backupmodule;
 
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Routing\Controller;
+use App\User;
+
 
 class BackupServiceProvider extends ServiceProvider
 

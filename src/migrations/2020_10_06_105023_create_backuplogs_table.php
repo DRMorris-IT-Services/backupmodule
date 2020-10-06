@@ -15,6 +15,9 @@ class CreateBackuplogsTable extends Migration
     {
         Schema::create('backuplogs', function (Blueprint $table) {
             $table->id();
+            $table->string('backup_id');
+            $table->string('backup_filename')->nullable();
+            $table->string('backup_url')->nullable();
             $table->timestamps();
         });
     }

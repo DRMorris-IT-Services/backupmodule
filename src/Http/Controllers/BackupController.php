@@ -6,6 +6,8 @@ namespace duncanrmorris\backupmodule\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
 use Illuminate\Support\Facades\View;
+use App\User;
+
 
 class BackupController extends Controller
 {
