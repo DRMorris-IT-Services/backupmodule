@@ -7,6 +7,8 @@ use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
 use Illuminate\Support\Facades\View;
 use App\User;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Str;
 
 
 class BackupController extends Controller
@@ -20,7 +22,9 @@ class BackupController extends Controller
     {
         //
 
-        return view('backupmodule::index');
+        $backups = DB::table('backuplogs')->orderby('created_at','ASC')->paginate(15);
+
+        return view('backupmodule::index', ['backups' => $backups]);
     }
 
     public function list()
@@ -97,4 +101,35 @@ class BackupController extends Controller
     {
         //
     }
+
+    public function backup()
+    {
+     
+        $todayDate = date("Y-m-d H:i:s");
+        $file_id = Str::uuid();
+
+        $host = env('DB_HOST');
+        $user = env('DB_USERNAME');
+        $pass = env('DB_PASSWORD');
+        $port = env('DB_PORT');
+        $dbase = env('DB_DATABASE');
+
+        $storage = storage_path("app/public/backups");
+        //$storage = "/tmp";
+
+        shell_exec("mysqldump -h'$host' -u'$user' -p'$pass' -P'$port' --databases $dbase > $storage/$file_id.sql");
+        
+        
+
+        DB::table('backuplogs')->insert(
+             ['backup_id' => Str::random(60),'backup_filename' => $file_id, 'backup_url' => "$storage/$file_id.sql", 'created_at' => $todayDate]
+         );
+        
+         return redirect('/backup')->withStatus('The Backup has Started.  Once completed, it will appear in the list below');
+
+         
+
+        
+    }
+
 }
