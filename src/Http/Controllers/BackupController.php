@@ -22,7 +22,7 @@ class BackupController extends Controller
     {
         //
 
-        $backups = DB::table('backuplogs')->orderby('created_at','ASC')->paginate(15);
+        $backups = DB::table('backuplogs')->orderby('created_at','DESC')->paginate(15);
 
         return view('backupmodule::index', ['backups' => $backups]);
     }
@@ -114,15 +114,16 @@ class BackupController extends Controller
         $port = env('DB_PORT');
         $dbase = env('DB_DATABASE');
 
-        $storage = storage_path("app/public/backups");
+        $storage = storage_path("app/public");
         //$storage = "/tmp";
 
-        shell_exec("mysqldump -h'$host' -u'$user' -p'$pass' -P'$port' --databases $dbase > $storage/$file_id.sql");
+        shell_exec("mysqldump -h'$host' -u'$user' -p'$pass' -P'$port' --databases $dbase > $storage/backups/$file_id.sql");
         
-        
+        exec("zip -r $storage/backups/$file_id.zip $storage");
+        exec("unlink $storage/backups/$file_id.sql");
 
         DB::table('backuplogs')->insert(
-             ['backup_id' => Str::random(60),'backup_filename' => $file_id, 'backup_url' => "$storage/$file_id.sql", 'created_at' => $todayDate]
+             ['backup_id' => Str::random(60),'backup_filename' => "$file_id.zip", 'backup_url' => "$storage/$file_id.zip", 'created_at' => $todayDate]
          );
         
          return redirect('/backup')->withStatus('The Backup has Started.  Once completed, it will appear in the list below');
