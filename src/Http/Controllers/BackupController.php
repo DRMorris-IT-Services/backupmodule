@@ -1,11 +1,12 @@
 <?php
 
-namespace App\Http\Controllers;
+//namespace App\Http\Controllers;
+namespace duncanrmorris\backupmodule\Http\Controllers;
 
-use App\BackupController;
 use Illuminate\Http\Request;
+use Illuminate\Routing\Controller;
 
-class BackupControllerController extends Controller
+class BackupController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -15,6 +16,8 @@ class BackupControllerController extends Controller
     public function index()
     {
         //
+
+        return 'index view here';
     }
 
     /**
@@ -41,10 +44,10 @@ class BackupControllerController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  \App\BackupController  $backupController
+     * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show(BackupController $backupController)
+    public function show($id)
     {
         //
     }
@@ -52,10 +55,10 @@ class BackupControllerController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\BackupController  $backupController
+     * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit(BackupController $backupController)
+    public function edit($id)
     {
         //
     }
@@ -64,10 +67,10 @@ class BackupControllerController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\BackupController  $backupController
+     * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, BackupController $backupController)
+    public function update(Request $request, $id)
     {
         //
     }
@@ -75,10 +78,10 @@ class BackupControllerController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\BackupController  $backupController
+     * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy(BackupController $backupController)
+    public function destroy($id)
     {
         //
     }

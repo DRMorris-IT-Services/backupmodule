@@ -1,5 +1,6 @@
 <?php
 
-Route::get('/backup', function(){
-    return 'Backup module';
+Route::group(['namespace' => 'duncanrmorris\backupmodule\Http\Controllers'], function()
+{
+    Route::get('backup', 'BackupController@index');
 });
