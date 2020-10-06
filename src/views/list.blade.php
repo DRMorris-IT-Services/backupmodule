@@ -4,7 +4,7 @@
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
 
-        <title>Backup Module</title>
+        <title>Laravel</title>
 
         <!-- Fonts -->
         <link href="https://fonts.googleapis.com/css?family=Nunito:200,600" rel="stylesheet">
@@ -80,15 +80,8 @@
             @endif
 
             <div class="content">
-                <div class="title m-b-md">
-                    Backup Module
-                </div>
+                <h1>Backup List</h1>
 
-                <div class="links">
-                <a href="{{route('new')}}">New Backup</a>
-                    <a href="{{route('list')}}">Backup List</a>
-                    
-                </div>
             </div>
         </div>
     </body>

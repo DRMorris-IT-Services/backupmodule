@@ -5,6 +5,7 @@ namespace duncanrmorris\backupmodule\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
+use Illuminate\Support\Facades\View;
 
 class BackupController extends Controller
 {
@@ -17,7 +18,14 @@ class BackupController extends Controller
     {
         //
 
-        return 'index view here';
+        return view('backupmodule::index');
+    }
+
+    public function list()
+    {
+        //
+
+        return view('backupmodule::list');
     }
 
     /**
@@ -28,6 +36,8 @@ class BackupController extends Controller
     public function create()
     {
         //
+        return view('backupmodule::new');
+
     }
 
     /**
