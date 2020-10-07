@@ -97,9 +97,22 @@ class BackupController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy($id, $url)
     {
         //
+        $storage = storage_path("app/public");
+        exec("unlink $storage/$url");
+
+        DB::update('delete from backuplogs where backup_id = ?',[$id]);
+        
+        return redirect('backup')->withDelete(__('Backup successfully Deleted.'));
+
+
+    }
+
+    public function delete($id, $url)
+    {
+        return view('backupmodule::delete',['id' => $id, 'url' => $url]);
     }
 
     public function backup()
@@ -115,12 +128,13 @@ class BackupController extends Controller
         $dbase = env('DB_DATABASE');
 
         $storage = storage_path("app/public");
+        $backup = storage_path("/");
         //$storage = "/tmp";
 
-        shell_exec("mysqldump -h'$host' -u'$user' -p'$pass' -P'$port' --databases $dbase > $storage/backups/$file_id.sql");
+        shell_exec("mysqldump -h'$host' -u'$user' -p'$pass' -P'$port' --databases $dbase > $storage/$file_id.sql");
         
-        exec("zip -r $storage/backups/$file_id.zip $storage");
-        exec("unlink $storage/backups/$file_id.sql");
+        exec("zip -r $storage/$file_id.zip $backup");
+        exec("unlink $storage/$file_id.sql");
 
         DB::table('backuplogs')->insert(
              ['backup_id' => Str::random(60),'backup_filename' => "$file_id.zip", 'backup_url' => "$storage/$file_id.zip", 'created_at' => $todayDate]
