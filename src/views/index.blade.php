@@ -42,7 +42,7 @@
                               <tr>
                                 <td>{{$bk->backup_filename}}</td>
                                 <td>{{$bk->backup_url}}</td>
-                                <td>{{$bk->created_at}}</td>
+                                <td>{{date('d/m/y H:i', strtotime($bk->created_at))}}</td>
                                 <td>
                                 <a href="/storage/{{$bk->backup_filename}}" ><button class="btn btn-sm btn-outline-primary fa fa-download"></button></a>
                                   <button class="btn btn-sm btn-outline-danger fa fa-trash" data-toggle="modal" data-target="#del{{$bk->id}}"></button>
