@@ -140,7 +140,7 @@ class BackupController extends Controller
              ['backup_id' => Str::random(60),'backup_filename' => "$file_id.zip", 'backup_url' => "$storage/$file_id.zip", 'created_at' => $todayDate]
          );
         
-         return redirect('/backup')->withStatus('The Backup has Started.  Once completed, it will appear in the list below');
+         return redirect('/backup')->withStatus('The Backup has been SUCCESSFUL.  The backup will now appear in the list below');
 
          
 
