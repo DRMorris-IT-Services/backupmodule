@@ -143,8 +143,8 @@ class BackupController extends Controller
         //Storage::copy(storage_path("app/public/$file_id.zip"), "backups/$file_id.zip", 's3');
         // Storage::put("$file_id.zip", $contents,'s3');
 
-        $local = Storage::get($storage/$file_id);
-        Storage::disk('s3')->put($file_id,$local);
+        $local = Storage::get("$storage/$file_id");
+        Storage::disk('s3')->put("$file_id,$local");
 
             
 
