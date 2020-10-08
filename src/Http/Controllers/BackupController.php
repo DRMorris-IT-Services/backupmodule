@@ -9,7 +9,10 @@ use Illuminate\Support\Facades\View;
 use App\User;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Str;
+use Carbon\Carbon;
+use Illuminate\Console\Command;
 use Illuminate\Support\Facades\Storage;
+use Symfony\Component\Process\Process;
 
 
 class BackupController extends Controller
@@ -134,8 +137,16 @@ class BackupController extends Controller
 
         shell_exec("mysqldump -h'$host' -u'$user' -p'$pass' -P'$port' --databases $dbase > $storage/$file_id.sql");
         
-        exec("zip -r $storage/$file_id.zip $backup");
+        $contents = exec("zip -r $storage/$file_id.zip $backup");
         exec("unlink $storage/$file_id.sql");
+
+        //Storage::copy(storage_path("app/public/$file_id.zip"), "backups/$file_id.zip", 's3');
+        // Storage::put("$file_id.zip", $contents,'s3');
+
+        $local = Storage::get($storage/$file_id);
+        Storage::disk('s3')->put($file_id,$local);
+
+            
 
         DB::table('backuplogs')->insert(
              ['backup_id' => Str::random(60),'backup_filename' => "$file_id.zip", 'backup_url' => "$storage/$file_id.zip", 'created_at' => $todayDate]
