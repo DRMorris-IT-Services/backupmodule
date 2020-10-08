@@ -44,7 +44,8 @@
                                 <td>{{$bk->backup_url}}</td>
                                 <td>{{$bk->created_at}}</td>
                                 <td>
-                                  <button class="btn btn-sm btn-outline-danger"data-toggle="modal" data-target="#del{{$bk->id}}"><i class="fa fa-trash"></i></button>
+                                <a href="/storage/{{$bk->backup_filename}}" ><button class="btn btn-sm btn-outline-primary fa fa-download"></button></a>
+                                  <button class="btn btn-sm btn-outline-danger fa fa-trash" data-toggle="modal" data-target="#del{{$bk->id}}"></button>
                                   
                                   <!-- MODAL DELETE CLIENT -->
                                   <form class="col-md-12" action="{{ route('backup.del.action',['id' => $bk->backup_id,'file' => $bk->backup_filename]) }}" method="POST" enctype="multipart/form-data">
