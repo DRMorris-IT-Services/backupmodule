@@ -3,6 +3,7 @@
 
 @section('content')
 
+
 <div class="container">
   @if (session('status'))
   <div class="alert alert-success" role="alert">
@@ -10,19 +11,35 @@
   </div>
 @endif
 
+@if($count == 0)
 <div class="row justify-content-end">
-  
-<a href="{{route('backup.controls')}}"><i class="fa fa-cog text-info"></i></a>
-  
+<a href="{{route('backup.controls',['id' => AUTH::user()->id])}}"><i class="fa fa-cog text-info"></i></a>
 </div>
+
+<h2>Setup Required</h2>
+  <p>Please use the 'Clog' icon to setup the users.</p>
+@endif
+@if($count >= 1)
+@foreach($controls as $c)
+
+@if($c->backup_admin == "on")
+<div class="row justify-content-end">
+  <a href="{{route('backup.controls',['id' => AUTH::user()->id])}}"><i class="fa fa-cog text-info"></i></a>
+  </div>
+@endif
+
+
 
 <ul class="nav nav-tabs" id="myTab" role="tablist">
   <li class="nav-item">
     <a class="nav-link active" id="home-tab" data-toggle="tab" href="#home" role="tab" aria-controls="home" aria-selected="true">list</a>
   </li>
+@if($c->backup_add == "on")  
   <li class="nav-item">
     <a class="nav-link" id="profile-tab" data-toggle="tab" href="#profile" role="tab" aria-controls="profile" aria-selected="false">New Backup</a>
   </li>
+  @endif
+
   
 </ul>
 <div class="tab-content" id="myTabContent">
@@ -34,6 +51,7 @@
                         <div class="card-header"><h3>Backups</h3></div>
 
                         <div class="card-body">
+                          @if($c->backup_view == "on")
                           <table class="table">
                             <thead class="text-primary">
                               <tr>
@@ -50,7 +68,10 @@
                                 <td>{{$bk->backup_url}}</td>
                                 <td>{{date('d/m/y H:i', strtotime($bk->created_at))}}</td>
                                 <td>
+                                  @if($c->backup_download == "on")
                                 <a href="{{route('backup.download', ['id' => $bk->backup_filename])}}" ><button class="btn btn-sm btn-outline-primary fa fa-download"></button></a>
+                                @endif
+                                @if($c->backup_del == "on")
                                   <button class="btn btn-sm btn-outline-danger fa fa-trash" data-toggle="modal" data-target="#del{{$bk->id}}"></button>
                                   
                                   <!-- MODAL DELETE CLIENT -->
@@ -84,7 +105,7 @@
                                   </form>
 
                                   <!-- END MODAL FOR DELETE CLIENT -->        
-
+                                  @endif
                                 </td>
                               </tr>
                             @endforeach
@@ -92,7 +113,9 @@
                             </tbody>
                           </table>
                           {{ $backups->links() }}
-
+                            @else
+                            <p>Sorry, you don't have the access level required to view.</p>
+                            @endif
                             
                         </div>
                     </div>
@@ -123,7 +146,8 @@
   
 </div>
 
-
+@endforeach
+@endif
 @endsection
 
 @push('scripts')

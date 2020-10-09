@@ -11,7 +11,7 @@ Route::group(['namespace' => 'duncanrmorris\backupmodule\Http\Controllers'], fun
     Route::get('backup/download/{id}', 'BackupController@download')->name('backup.download');
 
     ### CONTROLS ###
-    Route::get('backup/controls', 'BackupcontrolsController@index')->name('backup.controls');
+    Route::get('backup/controls/{id}', 'BackupcontrolsController@index')->name('backup.controls');
     Route::get('backup/controls/view/{id}', 'BackupcontrolsController@show')->name('backup.controls.view');
     Route::get('backup/controls/setup/{id}', 'BackupcontrolsController@create')->name('backup.controls.setup');
     Route::get('backup/controls/edit/{id}', 'BackupcontrolsController@edit')->name('backup.controls.edit');

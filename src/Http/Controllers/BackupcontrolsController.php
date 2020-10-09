@@ -17,11 +17,17 @@ class BackupcontrolsController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index(User $users)
+    public function index(User $users, backupcontrols $backupcontrols, $id)
     {
         //
 
-        return view('backupmodule::controls.list',['users' => $users->get()]);
+        return view('backupmodule::controls.list',[
+            'users' => $users->get(),
+            'check' => $backupcontrols->where('user_id',$id)->count(),
+            'controls' => $backupcontrols->where('user_id',$id)->get(),
+            ]);
+
+        
     }
 
     /**
@@ -34,6 +40,7 @@ class BackupcontrolsController extends Controller
         //
         backupcontrols::create([
             'user_id' => $id,
+            'backup_admin' => 'on',
         ]);
 
         return back()->withStatus(__('Access Levels successfully updated.'));
@@ -60,8 +67,8 @@ class BackupcontrolsController extends Controller
     {
         //
         return view('backupmodule::controls.view',[
-            'count' => $backupcontrols->where('id',$id)->count(),
-            'controls' => $backupcontrols->where('id',$id)->get(),
+            'count' => $backupcontrols->where('user_id',$id)->count(),
+            'controls' => $backupcontrols->where('user_id',$id)->get(),
             'user' => $user->where('id',$id)->get()
             ]);
     }
@@ -76,8 +83,8 @@ class BackupcontrolsController extends Controller
     {
         //
         return view('backupmodule::controls.edit',[
-            'count' => $backupcontrols->where('id',$id)->count(),
-            'controls' => $backupcontrols->where('id',$id)->get(),
+            'count' => $backupcontrols->where('user_id',$id)->count(),
+            'controls' => $backupcontrols->where('user_id',$id)->get(),
             'user' => $user->where('id',$id)->get()
             ]);
     }
@@ -95,6 +102,7 @@ class BackupcontrolsController extends Controller
 
         backupcontrols::where('id',$id)
         ->update([
+        'backup_admin' => $request['admin'],
         'backup_view' => $request['view'],
         'backup_add' => $request['new'],
         'backup_download' => $request['download'],

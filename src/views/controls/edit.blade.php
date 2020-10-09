@@ -11,13 +11,13 @@
   
   <div class="row justify-content-end">
     
-  <a href="{{route('backup.controls')}}"><i class="fa fa-cog text-info"></i></a>
+  <a href="{{route('backup.controls',['id' => AUTH::user()->id])}}"><i class="fa fa-cog text-info"></i></a>
     
   </div>
   
   <ul class="nav nav-tabs" id="myTab" role="tablist">
     <li class="nav-item">
-    <a class="nav-link" id="home-tab" href="{{route('backup.controls')}}" role="tab" aria-controls="home" aria-selected="true">Users</a>
+    <a class="nav-link" id="home-tab" href="{{route('backup.controls',['id' => AUTH::user()->id])}}" role="tab" aria-controls="home" aria-selected="true">Users</a>
     </li>
     
     
@@ -49,6 +49,16 @@
                                 </tr>
                             </thead>
                             <tbody>
+                                <tr>
+                                    <td>Backups Admin</td>
+                                    <td>
+                                        @if($c->backup_admin == "on")
+                                        <input type="checkbox" name="admin" onchange="submit()" checked>
+                                        @else
+                                        <input type="checkbox" name="admin" onchange="submit()" >
+                                        @endif
+                                    </td>
+                                </tr>
                                 <tr>
                                     <td>View Backups</td>
                                     <td>

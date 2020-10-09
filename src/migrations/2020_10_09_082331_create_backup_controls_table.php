@@ -16,6 +16,7 @@ class CreateBackupControlsTable extends Migration
         Schema::create('backupcontrols', function (Blueprint $table) {
             $table->id();
             $table->string('user_id');
+            $table->string('backup_admin')->nullable();
             $table->string('backup_view')->nullable();
             $table->string('backup_add')->nullable();
             $table->string('backup_download')->nullable();

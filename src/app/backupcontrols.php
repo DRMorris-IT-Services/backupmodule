@@ -16,6 +16,6 @@ class backupcontrols extends Model
      * @var array
      */
     protected $fillable = [
-        'user_id',
+        'user_id', 'backup_admin', 'backup_view', 'backup_add', 'backup_download', 'backup_del',
     ];
 }

@@ -1,5 +1,17 @@
 @extends('layouts.app')
 
+
+@if($check == 0)
+<script>window.location = "/home";</script>
+@endif
+
+@foreach($controls as $c)
+@if($c->backup_admin == null)
+<script>window.location = "/home";</script>
+@endif
+@endforeach
+
+
 @section('content')
 <div class="container"> 
     @if (session('status'))
@@ -10,7 +22,7 @@
   
   <div class="row justify-content-end">
     
-  <a href="{{route('backup.controls')}}"><i class="fa fa-cog text-info"></i></a>
+  <a href="{{route('backup.controls',['id' => AUTH::user()->id])}}"><i class="fa fa-cog text-info"></i></a>
     
   </div>
   

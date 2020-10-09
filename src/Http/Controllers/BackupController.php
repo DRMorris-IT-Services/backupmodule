@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
 use Illuminate\Support\Facades\View;
 use App\User;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Str;
 use Carbon\Carbon;
@@ -14,6 +15,7 @@ use Illuminate\Console\Command;
 use Illuminate\Support\Facades\Storage;
 use Symfony\Component\Process\Process;
 use Illuminate\Support\Facades\File;
+use duncanrmorris\backupmodule\app\backupcontrols;
 
 
 class BackupController extends Controller
@@ -23,13 +25,17 @@ class BackupController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(backupcontrols $backcontorls)
     {
         //
 
         $backups = DB::table('backuplogs')->orderby('created_at','DESC')->paginate(15);
 
-        return view('backupmodule::index', ['backups' => $backups]);
+        return view('backupmodule::index', [
+            'backups' => $backups, 
+            'controls' => $backcontorls->where('user_id',Auth::user()->id)->get(),
+            'count' => $backcontorls->count(),
+            ]);
     }
 
     public function list()
