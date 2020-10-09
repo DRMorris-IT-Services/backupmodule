@@ -1,9 +1,14 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace duncanrmorris\backupmodule\Http\Controllers;
 
-use App\backupcontrols;
 use Illuminate\Http\Request;
+use Illuminate\Routing\Controller;
+use Illuminate\Support\Facades\View;
+use App\User;
+
+use duncanrmorris\backupmodule\App\backupcontrols;
+
 
 class BackupcontrolsController extends Controller
 {
@@ -12,9 +17,11 @@ class BackupcontrolsController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(User $users)
     {
         //
+
+        return view('backupmodule::controls.list',['users' => $users->get()]);
     }
 
     /**
@@ -22,9 +29,14 @@ class BackupcontrolsController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function create(backupcontrols $backupcontrols, $id)
     {
         //
+        backupcontrols::create([
+            'user_id' => $id,
+        ]);
+
+        return back()->withStatus(__('Access Levels successfully updated.'));
     }
 
     /**
@@ -44,9 +56,14 @@ class BackupcontrolsController extends Controller
      * @param  \App\backupcontrols  $backupcontrols
      * @return \Illuminate\Http\Response
      */
-    public function show(backupcontrols $backupcontrols)
+    public function show(backupcontrols $backupcontrols, User $user, $id)
     {
         //
+        return view('backupmodule::controls.view',[
+            'count' => $backupcontrols->where('id',$id)->count(),
+            'controls' => $backupcontrols->where('id',$id)->get(),
+            'user' => $user->where('id',$id)->get()
+            ]);
     }
 
     /**
@@ -55,9 +72,14 @@ class BackupcontrolsController extends Controller
      * @param  \App\backupcontrols  $backupcontrols
      * @return \Illuminate\Http\Response
      */
-    public function edit(backupcontrols $backupcontrols)
+    public function edit(backupcontrols $backupcontrols, User $user, $id)
     {
         //
+        return view('backupmodule::controls.edit',[
+            'count' => $backupcontrols->where('id',$id)->count(),
+            'controls' => $backupcontrols->where('id',$id)->get(),
+            'user' => $user->where('id',$id)->get()
+            ]);
     }
 
     /**
@@ -67,9 +89,18 @@ class BackupcontrolsController extends Controller
      * @param  \App\backupcontrols  $backupcontrols
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, backupcontrols $backupcontrols)
+    public function update(Request $request, backupcontrols $backupcontrols, $id)
     {
         //
+
+        backupcontrols::where('id',$id)
+        ->update([
+        'backup_view' => $request['view'],
+        'backup_add' => $request['new'],
+        'backup_download' => $request['download'],
+        'backup_del' => $request['del'],
+        ]);
+        return back()->withStatus(__('Access Levels successfully updated.'));
     }
 
     /**

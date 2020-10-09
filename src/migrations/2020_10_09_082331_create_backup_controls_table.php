@@ -13,9 +13,10 @@ class CreateBackupControlsTable extends Migration
      */
     public function up()
     {
-        Schema::create('backup_controls', function (Blueprint $table) {
+        Schema::create('backupcontrols', function (Blueprint $table) {
             $table->id();
             $table->string('user_id');
+            $table->string('backup_view')->nullable();
             $table->string('backup_add')->nullable();
             $table->string('backup_download')->nullable();
             $table->string('backup_del')->nullable();
@@ -30,6 +31,6 @@ class CreateBackupControlsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('backup_controls');
+        Schema::dropIfExists('backupcontrols');
     }
 }

@@ -10,5 +10,12 @@ Route::group(['namespace' => 'duncanrmorris\backupmodule\Http\Controllers'], fun
     Route::put('backup/del/action/{id}/{file}', 'BackupController@destroy')->name('backup.del.action');
     Route::get('backup/download/{id}', 'BackupController@download')->name('backup.download');
 
+    ### CONTROLS ###
+    Route::get('backup/controls', 'BackupcontrolsController@index')->name('backup.controls');
+    Route::get('backup/controls/view/{id}', 'BackupcontrolsController@show')->name('backup.controls.view');
+    Route::get('backup/controls/setup/{id}', 'BackupcontrolsController@create')->name('backup.controls.setup');
+    Route::get('backup/controls/edit/{id}', 'BackupcontrolsController@edit')->name('backup.controls.edit');
+    Route::put('backup/controls/update/{id}', 'BackupcontrolsController@update')->name('backup.controls.update');
+
     });
 });

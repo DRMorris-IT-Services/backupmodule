@@ -10,6 +10,12 @@
   </div>
 @endif
 
+<div class="row justify-content-end">
+  
+<a href="{{route('backup.controls')}}"><i class="fa fa-cog text-info"></i></a>
+  
+</div>
+
 <ul class="nav nav-tabs" id="myTab" role="tablist">
   <li class="nav-item">
     <a class="nav-link active" id="home-tab" data-toggle="tab" href="#home" role="tab" aria-controls="home" aria-selected="true">list</a>

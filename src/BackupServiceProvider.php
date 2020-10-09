@@ -14,7 +14,7 @@ class BackupServiceProvider extends ServiceProvider
     {
         $this->loadRoutesFrom(__DIR__.'/routes/web.php');
         $this->loadViewsFrom(__DIR__.'/views','backupmodule');
-        $this->loadMigrationsFrom(__DIR__.'/migrations/2020_10_06_105023_create_backuplogs_table.php');
+        $this->loadMigrationsFrom(__DIR__.'/migrations');
         //$this->mergeConfigFrom(__DIR__.'/config/releasenotes.php','releasenotes');
         // $this->publishes([
         //     __DIR__.'/Http/Controllers/ReleaseNotesController.php' => base_path('app/Http/Controllers/ReleaseNotesController.php'),
