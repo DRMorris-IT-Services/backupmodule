@@ -13,6 +13,7 @@ use Carbon\Carbon;
 use Illuminate\Console\Command;
 use Illuminate\Support\Facades\Storage;
 use Symfony\Component\Process\Process;
+use Illuminate\Support\Facades\File;
 
 
 class BackupController extends Controller
@@ -107,6 +108,8 @@ class BackupController extends Controller
         $storage = storage_path("app/public");
         exec("unlink $storage/$url");
 
+        Storage::disk('s3')->delete("backups/$url");
+
         DB::update('delete from backuplogs where backup_id = ?',[$id]);
         
         return redirect('backup')->withDelete(__('Backup successfully Deleted.'));
@@ -114,10 +117,6 @@ class BackupController extends Controller
 
     }
 
-    public function delete($id, $url)
-    {
-        return view('backupmodule::delete',['id' => $id, 'url' => $url]);
-    }
 
     public function backup()
     {
@@ -140,11 +139,12 @@ class BackupController extends Controller
         $contents = exec("zip -r $storage/$file_id.zip $backup");
         exec("unlink $storage/$file_id.sql");
 
-        //Storage::copy(storage_path("app/public/$file_id.zip"), "backups/$file_id.zip", 's3');
-        // Storage::put("$file_id.zip", $contents,'s3');
+    
+        $local = File::get(storage_path("app/public/$file_id.zip"));
+        Storage::disk('s3')->put("backups/$file_id.zip",$local);
 
-        $local = Storage::get("$storage/$file_id");
-        Storage::disk('s3')->put("$file_id,$local");
+        
+        exec("unlink $storage/$file_id.zip");
 
             
 
@@ -154,9 +154,23 @@ class BackupController extends Controller
         
          return redirect('/backup')->withStatus('The Backup has been SUCCESSFUL.  The backup will now appear in the list below');
 
-         
-
         
+    }
+
+    public function download($id){
+
+        $file = Storage::disk('s3')->get("backups/$id");
+
+        $headers = [
+            'Content-Type' => 'application/octet-stream',
+            'Content-Transfer-Encoding' => 'binary',
+            'Content-Description' => 'File Transfer',
+            'Content-Disposition' => "attachment; filename={$id}",
+            'filename'=> $id
+        ];
+
+        return response($file, 200, $headers);
+
     }
 
 
