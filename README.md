@@ -1,4 +1,4 @@
-# Laravel ^7.2 Backup Packagge
+# Laravel ^7.2 Backup Package
 
 [![Latest Stable Version](https://poser.pugx.org/duncanrmorris/backupmodule/v)](//packagist.org/packages/duncanrmorris/backupmodule)
 [![License](https://poser.pugx.org/duncanrmorris/backupmodule/license)](//packagist.org/packages/duncanrmorris/backupmodule)
@@ -10,7 +10,7 @@
 
 This Laravel package allows users to quickly and simply backup your Laravel app database and "./storage" directory into Amazon s3 Storage.  
 
-This package is designed to be used along side other packages and services provided by DRMorris IT Services.  For more information, check out www.drmorris-itservices.de
+This package is designed to be used along side other packages provided by DRMorris IT Services.  For more information, check out www.drmorris-itservices.de
 
 ## Installation
 
@@ -21,7 +21,7 @@ Setup your Laravel ^7.2 application as required.  Then run the command:
 ```
 Composer require duncanrmorris/backupmodle
 ```
-This will then download and install the module.
+This will then download and install the package.
 
 ### Step 2
 Update your ./config/app.php file to include the new providers:
