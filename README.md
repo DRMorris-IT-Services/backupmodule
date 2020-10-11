@@ -5,6 +5,9 @@
 [![Monthly Downloads](https://poser.pugx.org/duncanrmorris/backupmodule/d/monthly)](//packagist.org/packages/duncanrmorris/backupmodule)
 [![Total Downloads](https://poser.pugx.org/duncanrmorris/backupmodule/downloads)](//packagist.org/packages/duncanrmorris/backupmodule)
 
+
+![The Backup Module](backup_module_overview.png)
+
 This Laravel package allows users to quickly and simply backup your Laravel app database and "./storage" directory into Amazon s3 Storage.  
 
 This package is designed to be used along side other packages and services provided by DRMorris IT Services.  For more information, check out www.drmorris-itservices.de
