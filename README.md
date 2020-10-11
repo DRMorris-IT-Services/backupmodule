@@ -5,7 +5,9 @@
 [![Monthly Downloads](https://poser.pugx.org/duncanrmorris/backupmodule/d/monthly)](//packagist.org/packages/duncanrmorris/backupmodule)
 [![Total Downloads](https://poser.pugx.org/duncanrmorris/backupmodule/downloads)](//packagist.org/packages/duncanrmorris/backupmodule)
 
-This Laravel package allows users to quickly and simply backup their Laravel app into our managed services.  This package is designed to be used along side other packages and services provided by DRMorris IT Services.  For more information, check out www.drmorris-itservices.de
+This Laravel package allows users to quickly and simply backup your Laravel app database and "./storage" directory into Amazon s3 Storage.  
+
+This package is designed to be used along side other packages and services provided by DRMorris IT Services.  For more information, check out www.drmorris-itservices.de
 
 ## Installation
 
@@ -53,5 +55,19 @@ Setup the navigation to acccess the new module.  Within the ./resources/views/la
 
 Or use the href "/backup" in your app design as required.
 
-      
+### Step 5
+Insert your AWS s3 storage details in the ".env" file:
+
+````
+AWS_ACCESS_KEY_ID=
+AWS_SECRET_ACCESS_KEY=
+AWS_DEFAULT_REGION=eu-central-1
+AWS_BUCKET=
+````
+
+You will be able to obtain these information from your Amazon account.  From within the IAM module -> Users -> Username -> Security Key:
+
+![AWS User Access Keys](aws_keys.png)
+
+
 
