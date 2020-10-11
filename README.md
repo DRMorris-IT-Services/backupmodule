@@ -1,4 +1,4 @@
-# Laravel ^7.2 Backup Module
+# Laravel ^7.2 Backup Packagge
 
 [![Latest Stable Version](https://poser.pugx.org/duncanrmorris/backupmodule/v)](//packagist.org/packages/duncanrmorris/backupmodule)
 [![License](https://poser.pugx.org/duncanrmorris/backupmodule/license)](//packagist.org/packages/duncanrmorris/backupmodule)
