@@ -56,7 +56,6 @@
                             <thead class="text-primary">
                               <tr>
                                 <th>Filename</td>
-                                <th>URL</th>
                                 <th>Created</th>
                                 <th>Actions</th>
                               </tr>
@@ -65,7 +64,7 @@
                             @foreach($backups as $bk)
                               <tr>
                                 <td>{{$bk->backup_filename}}</td>
-                                <td>{{$bk->backup_url}}</td>
+                               
                                 <td>{{date('d/m/y H:i', strtotime($bk->created_at))}}</td>
                                 <td>
                                   @if($c->backup_download == "on")
