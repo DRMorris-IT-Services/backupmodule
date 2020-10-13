@@ -10,7 +10,7 @@
 
 This Laravel package allows users to quickly and simply backup your Laravel app database and "./storage" directory into Amazon s3 Storage.  
 
-This package is designed to be used along side other packages provided by DRMorris IT Services.  For more information, check out www.drmorris-itservices.de
+This package is designed to be used along side other packages provided by DRMorris IT Services.  For more information, check out https://github.com/DRMorris-IT-Services
 
 ## Installation
 
