@@ -1,10 +1,5 @@
 @extends('layouts.app')
 
-
-@if($check == 0)
-<script>window.location = "/home";</script>
-@endif
-
 @foreach($controls as $c)
 @if($c->backup_admin == null)
 <script>window.location = "/home";</script>
